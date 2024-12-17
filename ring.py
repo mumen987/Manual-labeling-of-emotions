@@ -44,11 +44,11 @@ class ArousalValenceRecorder:
         self.bottom_frame.pack(side=tk.BOTTOM, fill=tk.X)
 
         # 保存记录按钮
-        self.save_record_button = tk.Button(self.bottom_frame, text="保存记录", command=self.save_and_clear)
+        self.save_record_button = tk.Button(self.bottom_frame, text="記録保存", command=self.save_and_clear)
         self.save_record_button.pack(side=tk.LEFT, padx=5, pady=5)
 
         # 新增保存layout布局按钮
-        self.save_layout_button = tk.Button(self.bottom_frame, text="保存layout布局", command=self.save_layout)
+        self.save_layout_button = tk.Button(self.bottom_frame, text="layout保存", command=self.save_layout)
         self.save_layout_button.pack(side=tk.LEFT, padx=5, pady=5)
 
         # 初始化绘图
@@ -151,7 +151,7 @@ class ArousalValenceRecorder:
             A = event.ydata
 
             # 弹出对话框让用户输入时间
-            current_time = simpledialog.askfloat("输入时间点", "请输入时间点(秒):", parent=self.master)
+            current_time = simpledialog.askfloat("時点を入力してください", "時点（ｓ）を入力してください:", parent=self.master)
             if current_time is None:
                 # 用户取消输入，不添加点
                 return
@@ -227,7 +227,7 @@ class ArousalValenceRecorder:
     def save_and_clear(self):
         # 保存当前数据到CSV
         if not self.data:
-            print("当前无记录可保存。")
+            print("現在、保存するレコードはありません。")
             return
 
         # 文件名: emotion_YYYYMMDD_HHMMSS.csv
@@ -238,7 +238,7 @@ class ArousalValenceRecorder:
             writer.writerow(["time(s)", "arousal", "valence"])
             for row in self.data:
                 writer.writerow(row)
-        print(f"记录已保存为 {filename}")
+        print(f"記録は次のように保存されました {filename}")
 
         # 清空数据与图上的点和线
         self.data.clear()
@@ -263,7 +263,7 @@ class ArousalValenceRecorder:
                 t = lbl["text"]
                 x, y = lbl["artist"].get_position()
                 writer.writerow([t, x, y])
-        print("布局已保存到 layout.csv")
+        print("レイアウトの保存先 layout.csv")
 
     def load_layout(self):
         layout_file = "layout.csv"
@@ -296,7 +296,7 @@ class ArousalValenceRecorder:
 
         # 重新绘制参考线
         self.draw_label_lines()
-        print("已加载layout.csv布局")
+        print("layout.csv レイアウトが読み込まれました")
 
 if __name__ == "__main__":
     root = tk.Tk()
